@@ -20,17 +20,19 @@
 		</div>
 		<div class="links">
 			<ul>
-				<li><a href="#" class="menu-link selected">HOME</a></li>
-				<li><a href="#" class="menu-link">FOOD</a></li>
-				<li><a href="#" class="menu-link">LIFESTYLE</a></li>
-				<li><a href="#" class="menu-link">TRAVEL</a></li>
-				<li><a href="#" class="menu-link">ABOUT US</a></li>
+				<li><router-link @click.native="toggleSideMenu" to="/" class="menu-link">HOME</router-link></li>
+				<li><router-link @click.native="toggleSideMenu" to="/blog/food" class="menu-link">FOOD</router-link></li>
+				<li><router-link @click.native="toggleSideMenu" to="/blog/lifestyle" class="menu-link">LIFESTYLE</router-link></li>
+				<li><router-link @click.native="toggleSideMenu" to="/blog/travel" class="menu-link">TRAVEL</router-link></li>
+				<li><router-link @click.native="toggleSideMenu" to="/about" class="menu-link">ABOUT US</router-link></li>
 			</ul>
 		</div>
 		<div class="footer">
 			<p class="follow-us">Follow Us</p>
 			<div class="icons">
-
+				<div class="icon"><img src="http://www.freepngimg.com/download/facebook/8-2-facebook-transparent.png" alt=""></div>
+				<div class="icon"><img src="http://huboncampus.com/wp-content/themes/hub-tucson2/images/social/twitter/twitter-2048-black.png" alt=""></div>
+				<div class="icon"><img src="https://s3.amazonaws.com/freebiesupply/large/2x/instagram-logo-black-transparent.png" alt=""></div>
 			</div>
 		</div>
 	</div>
@@ -49,6 +51,10 @@ var vm = {
 	methods: {
 		toggleSideMenu() {
 			this.isMenuOpen = !this.isMenuOpen;
+		},
+		route(name, category) {
+			this.toggleSideMenu();
+			this.$router.push({ name, params: category ? { category } : undefined });
 		}
 	}
 }
@@ -81,7 +87,7 @@ export default vm;
 	width: 30px;
 	height: 2px;
 	border-radius: 5px;
-	background-color: black;
+	background-color: white;
 	opacity: 1;
 	transition: opacity 200ms linear;
 
@@ -95,10 +101,10 @@ export default vm;
 	text-align: center;
 	margin: 0;
 	font-size: 12px;
-	color: black;
+	color: white;
 	bottom: 0;
 	transition:
-		opacity 200ms linear;
+	opacity 200ms linear;
 
 	&.close {
 		opacity: 0;
@@ -107,6 +113,10 @@ export default vm;
 	&.menu {
 		opacity: 1;
 	}
+}
+
+.hamburger.opened span {
+	background-color: black;
 }
 
 .hamburger span:first-child,
@@ -140,6 +150,7 @@ export default vm;
 
 .hamburger.opened p {
 	transition: opacity 200ms linear;
+	color: black;
 
 	&.menu {
 		opacity: 0;
@@ -188,12 +199,26 @@ export default vm;
 	align-items: center;
 }
 
+.logo {
+	position: relative;
+	opacity: 0;
+	top: -20px;
+	transition: all 200ms linear;
+	transition-delay: 300ms;
+}
+
 .logo-container {
 	height: 150px;
 	min-width: 150px;
 	background-color: white;
 	border-radius: 50%;
 	border: 2px solid black;
+}
+
+.side-menu.opened .logo {
+	opacity: 1;
+	top: 0;
+	// transition-delay: 0;
 }
 
 .links {
@@ -273,7 +298,7 @@ export default vm;
 	}
 
 	&:hover,
-	&.selected {
+	&.router-link-exact-active {
 		// right: 20px;
 		font-size: 18px;
 		font-weight: bold;
@@ -307,7 +332,7 @@ export default vm;
 	}
 
 
-	&.selected {
+	&.router-link-exact-active {
 		color: #ffc107;
 		cursor: default;
 
@@ -329,11 +354,61 @@ export default vm;
 }
 
 .follow-us {
+	position: relative;
+	left: -20px;
+	opacity: 0;
+	transition: all 200ms linear 550ms;
 	margin: 0;
 }
 
+.side-menu.opened .follow-us {
+	left: 0;
+	opacity: 1;
+}
+
 .icons {
+	display: flex;
+	justify-content: center;
+	margin-top: 5px;
+	margin-bottom: 20px;
+}
+
+.icons .icon {
+	position: relative;
+	right: -20px;
+	opacity: 0;
 	height: 30px;
+	width: auto;
+	// border: 2px solid black;
+	// border-radius: 50%;
+	display: inline-block;
+	transition: all 200ms linear;
+
+	&:first-child {
+		transition-delay: 500ms;
+	}
+
+	&:nth-child(2) {
+		transition-delay: 600ms;
+	}
+
+	&:last-child {
+		transition-delay: 700ms;
+	}
+
+	&:not(:last-child) {
+		margin-right: 10px;
+	}
+
+	img {
+		max-width: 100%;
+		max-height: 100%;
+	}
+}
+
+.side-menu.opened .icons .icon {
+	right: 0;
+	opacity: 1;
 }
 </style>
 

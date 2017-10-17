@@ -99,7 +99,7 @@ export default {
 }
 
 .home {
-	grid-template-rows: 310px 175px auto 175px;
+	grid-template-rows: 310px 175px auto auto;
 }
 
 .hero,
@@ -234,6 +234,22 @@ export default {
 	color: white;
 	border: 2px solid white;
 	border-radius: 0;
+}
+
+.about {
+	padding: 20px 30px;
+}
+
+.about .image-container {
+	width: 100px;
+	height: 100px;
+	border: 2px solid black;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+
+.about .blurb {
+	text-align: center;
 }
 
 </style>

@@ -52,7 +52,7 @@ body {
 	left: 0;
 	height: 60px;
 	z-index: 1000;
-	background-color: rgba(255, 255, 255, .75);
+	background-color: rgba(0, 0, 0, .75);
 }
 
 .app-footer {
